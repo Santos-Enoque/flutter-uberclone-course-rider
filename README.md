@@ -1,4 +1,4 @@
-# ubercourserider
+# Flutter Uber Clone Course Rider App
 
 A new Flutter application.
 
