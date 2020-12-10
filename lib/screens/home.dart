@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ubercourserider/providers/app.dart';
+import '../widgets/pickup_selection_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
@@ -21,7 +22,10 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          MapScreen(scaffoldKey: _key,),
+          MapScreen(
+            scaffoldKey: _key,
+          ),
+          PickupSelectionWidget()
         ],
       ),
     );
@@ -37,7 +41,6 @@ class MapScreen extends StatefulWidget {
 }
 
 class MapScreenState extends State<MapScreen> {
-
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context);
@@ -56,8 +59,9 @@ class MapScreenState extends State<MapScreen> {
                     myLocationEnabled: true,
                   ),
                   Positioned(
-                      child:
-                          IconButton(icon: Icon(Icons.menu), onPressed: () {
+                      child: IconButton(
+                          icon: Icon(Icons.menu),
+                          onPressed: () {
                             widget.scaffoldKey.currentState.openDrawer();
                           }))
                 ],

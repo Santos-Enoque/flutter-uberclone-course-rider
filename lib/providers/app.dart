@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppProvider with ChangeNotifier {
 
@@ -9,8 +8,7 @@ class AppProvider with ChangeNotifier {
   GoogleMapController _mapController;
   LatLng _center;
   LatLng get center => _center;
-  bool _hasLocationPermission;
-  bool _isLocationEnabled;
+
 
 
   AppProvider.initialize() {
