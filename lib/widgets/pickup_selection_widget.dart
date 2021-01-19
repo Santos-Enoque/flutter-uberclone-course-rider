@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ubercourserider/helpers/style.dart';
+import 'package:ubercourserider/widgets/custom_btn.dart';
 
 import 'custom_text.dart';
 
@@ -65,21 +66,9 @@ class PickupSelectionWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: RaisedButton(
-                    onPressed: () {},
-                    color: black,
-                    child: CustomText(
-                      text: 'Confirm Pickup',
-                      color: Colors.white,
-                      size: 16,
-                    ),
-                  ),
-                ),
+              Padding(
+                padding: const EdgeInsets.all(4),
+                child: CustomBtn(text: "Continue", onTap: () {}),
               )
             ],
           ),
