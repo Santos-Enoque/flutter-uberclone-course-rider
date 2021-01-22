@@ -3,7 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ubercourserider/providers/app.dart';
+import 'package:ubercourserider/screens/authentication.dart';
 import 'package:ubercourserider/screens/home.dart';
+import 'package:ubercourserider/screens/splash.dart';
 
 import 'helpers/constants.dart';
 
@@ -34,7 +36,7 @@ void main() async{
   ],
   child: MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: "Uber Clone",
-    home: HomeScreen(),
+    title: "Cab Grab",
+    home: AuthenticationScreen(),
   ),));
 }
