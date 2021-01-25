@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ubercourserider/providers/app.dart';
+import 'package:ubercourserider/providers/auth.dart';
+import 'package:ubercourserider/screens/home.dart';
 import 'package:ubercourserider/widgets/auth_button.dart';
 import 'package:ubercourserider/widgets/custom_text.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:ubercourserider/widgets/loading.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    final AppProvider appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
-      body: Stack(
+      body: appProvider.isLoading ? Loading() : Stack(
         children: [
           Image.asset(
             "assets/images/bg.jpg", width: double.infinity, height: MediaQuery
@@ -63,12 +71,21 @@ class AuthenticationScreen extends StatelessWidget {
                       AuthButton(
                         title: "Google",
                         image: "google.png",
-                        onTap: (){},
+                        onTap: () async {
+                          appProvider.changeLoading();
+                         await authProvider.authenticate(context, method: AuthenticationMethod.Google);
+                          appProvider.changeLoading();
+
+                        },
                       ),
                         AuthButton(
                           title: "Facebook",
                           image: "facebook.png",
-                          onTap: (){},
+                          onTap: () async {
+                            appProvider.changeLoading();
+                          await  authProvider.authenticate(context, method: AuthenticationMethod.Facebook);
+                            appProvider.changeLoading();
+                          },
                         )
 
 

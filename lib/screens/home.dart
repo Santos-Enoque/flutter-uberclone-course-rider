@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ubercourserider/providers/app.dart';
+import 'package:ubercourserider/providers/auth.dart';
+import 'package:ubercourserider/widgets/custom_text.dart';
 import '../widgets/pickup_selection_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,14 +11,30 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppProvider appProvider = Provider.of<AppProvider>(context);
+    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+
     return Scaffold(
       key: _key,
       drawer: Drawer(
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-                accountName: Text("Santos Enoque"),
-                accountEmail: Text("abc@email.com"))
+
+                accountName: Text(authProvider.userModel.name),
+                accountEmail: Text(authProvider.userModel.email),
+            decoration: BoxDecoration(
+              color: Colors.black
+            ),),
+
+            ListTile(
+              leading: Icon(Icons.exit_to_app_rounded),
+              title: CustomText(text: "Log out",),
+              onTap: (){
+                authProvider.signOut();
+              },
+            )
           ],
         ),
       ),
@@ -60,7 +78,7 @@ class MapScreenState extends State<MapScreen> {
                   ),
                   Positioned(
                       child: IconButton(
-                          icon: Icon(Icons.menu),
+                          icon: Icon(Icons.menu, size: 40,),
                           onPressed: () {
                             widget.scaffoldKey.currentState.openDrawer();
                           }))

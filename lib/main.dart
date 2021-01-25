@@ -3,9 +3,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ubercourserider/providers/app.dart';
+import 'package:ubercourserider/providers/auth.dart';
+import 'package:ubercourserider/providers/prhone.dart';
 import 'package:ubercourserider/screens/authentication.dart';
 import 'package:ubercourserider/screens/home.dart';
 import 'package:ubercourserider/screens/splash.dart';
+import 'package:ubercourserider/widgets/loading.dart';
 
 import 'helpers/constants.dart';
 
@@ -32,11 +35,35 @@ void main() async{
     }
   }
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider.value(value: AppProvider.initialize())
+    ChangeNotifierProvider.value(value: AppProvider.initialize()),
+    ChangeNotifierProvider.value(value: AuthProvider.init()),
+    ChangeNotifierProvider.value(value: PhoneProvider()),
+
   ],
   child: MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Cab Grab",
-    home: AuthenticationScreen(),
+    home: AppScreensController(),
   ),));
 }
+
+class AppScreensController extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    switch (authProvider.status) {
+      case Status.Uninitialized:
+        return SplashScreen();
+      case Status.Unauthenticated:
+        return AuthenticationScreen();
+
+      case Status.Authenticating:
+        return Loading();
+      case Status.Authenticated:
+        return HomeScreen();
+      default:
+        return AuthenticationScreen();
+    }
+  }
+}
+
