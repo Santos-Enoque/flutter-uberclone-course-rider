@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../helpers/style.dart';
@@ -35,15 +36,16 @@ class CustomBtn extends StatelessWidget {
                   offset: Offset(2, 3),
                   blurRadius: 4)
             ]),
-        child: Padding(
-          padding: const EdgeInsets.all(14),
+        child: Container(
+          margin: EdgeInsets.all(14),
+          alignment: Alignment.center,
           child: CustomText(
             text: text,
             color: txtColor ?? white,
             size: 22,
             weight: FontWeight.normal,
           ),
-        ),
+        )
       ),
     );
   }

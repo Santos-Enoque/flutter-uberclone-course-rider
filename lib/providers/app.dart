@@ -3,20 +3,20 @@ import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ubercourserider/helpers/constants.dart';
-import 'package:ubercourserider/helpers/style.dart';
-import 'dart:developer' as dev;
 
 class AppProvider with ChangeNotifier {
   Position position;
   GoogleMapController _mapController;
   bool isLoading = false;
   LatLng _center;
+
   LatLng get center => _center;
   String country;
-
-
+  Set<Marker> markers = {};
+  BitmapDescriptor locationPin;
 
   AppProvider.initialize() {
+    _setCustomMapPin();
     _getUserLocation();
   }
 
@@ -24,9 +24,10 @@ class AppProvider with ChangeNotifier {
     position = await Geolocator.getCurrentPosition();
 
     _center = LatLng(position.latitude, position.longitude);
+    _addMarker(markerPosition: _center, id: 'pickup', title: 'Pickup Location');
     final coordinates = new Coordinates(_center.latitude, _center.longitude);
     List<Address> addresses =
-    await Geocoder.local.findAddressesFromCoordinates(coordinates);
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
     String countryCode = addresses[0].countryCode;
     country = countryCode;
     logger.i(
@@ -40,9 +41,20 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  _setCustomMapPin() async {
+    locationPin = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.5), 'assets/images/pin.png');
+  }
 
-
-
+  _addMarker({LatLng markerPosition, String id, String title}) {
+    markers.add(Marker(
+        markerId: MarkerId(id),
+        position: markerPosition,
+        zIndex: 10,
+        infoWindow: InfoWindow(title: title),
+        icon: locationPin));
+    notifyListeners();
+  }
 
   changeLoading() {
     isLoading = !isLoading;

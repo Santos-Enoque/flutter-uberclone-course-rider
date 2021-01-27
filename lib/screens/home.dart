@@ -75,6 +75,7 @@ class MapScreenState extends State<MapScreen> {
                     ),
                     onMapCreated: appProvider.onCreate,
                     myLocationEnabled: true,
+                    markers: appProvider.markers,
                   ),
                   Positioned(
                       child: IconButton(
