@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ubercourserider/helpers/style.dart';
+import 'package:ubercourserider/providers/app.dart';
 import 'package:ubercourserider/widgets/custom_btn.dart';
 
 import 'custom_text.dart';
@@ -11,6 +13,8 @@ class PickupSelectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(context);
+
     return DraggableScrollableSheet(
       initialChildSize: 0.3,
       minChildSize: 0.3,
@@ -46,7 +50,7 @@ class PickupSelectionWidget extends StatelessWidget {
                   child: TextField(
                     onTap: () async {},
                     textInputAction: TextInputAction.go,
-                    controller: null,
+                    controller: appProvider.pickupLocationController,
                     decoration: InputDecoration(
                         icon: Container(
                             margin: EdgeInsets.only(left: 20, bottom: 15),

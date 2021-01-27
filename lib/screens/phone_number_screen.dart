@@ -34,7 +34,7 @@ class _PhoneValidationScreenState extends State<PhoneValidationScreen> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: appProvider.country == null
+      body: appProvider.countryCode == null
           ? Loading()
           : SingleChildScrollView(
               physics: NeverScrollableScrollPhysics(),

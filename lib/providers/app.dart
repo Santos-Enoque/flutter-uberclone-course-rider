@@ -9,32 +9,49 @@ class AppProvider with ChangeNotifier {
   GoogleMapController _mapController;
   bool isLoading = false;
   LatLng _center;
+  LatLng _lastPosition;
 
+  Address address;
   LatLng get center => _center;
-  String country;
+  String countryCode;
   Set<Marker> markers = {};
   BitmapDescriptor locationPin;
+  bool _pickUpLocationSet = false;
+  bool _dropOffLocationSet = false;
+  TextEditingController pickupLocationController = TextEditingController();
+  TextEditingController dropOffController = TextEditingController();
 
   AppProvider.initialize() {
     _setCustomMapPin();
-    _getUserLocation();
+    _getUserLocation().then((value)async{
+      _addMarker(markerPosition: _center, id: 'pickup', title: 'Pickup Location');
+      await _getAddressFromCoordinates();
+      _changeAddress(address: address.addressLine);
+      _setCountryCode();
+    });
   }
 
-  _getUserLocation() async {
+ Future _getUserLocation() async {
     position = await Geolocator.getCurrentPosition();
-
     _center = LatLng(position.latitude, position.longitude);
-    _addMarker(markerPosition: _center, id: 'pickup', title: 'Pickup Location');
-    final coordinates = new Coordinates(_center.latitude, _center.longitude);
-    List<Address> addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    String countryCode = addresses[0].countryCode;
-    country = countryCode;
-    logger.i(
-      "user country is $country",
-    );
     notifyListeners();
   }
+
+ Future _getAddressFromCoordinates() async {
+      final coordinates = new Coordinates(_center.latitude, _center.longitude);
+   List<Address> addresses =
+       await Geocoder.local.findAddressesFromCoordinates(coordinates);
+   address = addresses[0];
+ }
+
+
+
+
+
+  _setCountryCode(){
+   countryCode = address.countryCode;
+notifyListeners();
+ }
 
   onCreate(GoogleMapController controller) {
     _mapController = controller;
@@ -53,6 +70,15 @@ class AppProvider with ChangeNotifier {
         zIndex: 10,
         infoWindow: InfoWindow(title: title),
         icon: locationPin));
+    notifyListeners();
+  }
+
+  _changeAddress({String address, bool isPickup = true}) async {
+    if (isPickup) {
+      pickupLocationController.text = address;
+    } else {
+      dropOffController.text = address;
+    }
     notifyListeners();
   }
 
