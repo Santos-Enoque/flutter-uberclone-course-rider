@@ -18,6 +18,20 @@ class UserServices {
         .set({"name": name, "id": id, "photo": photo, "email": email});
   }
 
+  bool updateUserData(Map<String, dynamic> values){
+    try{
+      firebaseFirestore.collection(collection).doc(values['id']).update(values);
+
+      return true;
+    }catch(e){
+      logger.e(
+          "error updating user data",
+          e.toString()
+      );
+      return false;
+    }
+  }
+
   Future<UserModel> getUserById(String id) =>
       firebaseFirestore.collection(collection).doc(id).get().then((doc) {
         return UserModel.fromMap(doc.data());

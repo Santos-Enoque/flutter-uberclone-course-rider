@@ -71,7 +71,7 @@ class MapScreenState extends State<MapScreen> {
                   GoogleMap(
                     initialCameraPosition: CameraPosition(
                       target: appProvider.center,
-                      zoom: 13,
+                      zoom: 17,
                     ),
                     onMapCreated: appProvider.onCreate,
                     myLocationEnabled: true,

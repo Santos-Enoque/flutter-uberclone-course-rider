@@ -124,8 +124,7 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
     } else {
       _user = firebaseUser;
-      initializeUserModel();
-      Future.delayed(const Duration(seconds: 2), () {
+      await initializeUserModel().then((value) {
         _status = Status.Authenticated;
         notifyListeners();
       });

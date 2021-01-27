@@ -7,6 +7,7 @@ import 'package:ubercourserider/providers/auth.dart';
 import 'package:ubercourserider/providers/prhone.dart';
 import 'package:ubercourserider/screens/authentication.dart';
 import 'package:ubercourserider/screens/home.dart';
+import 'package:ubercourserider/screens/phone_number_screen.dart';
 import 'package:ubercourserider/screens/splash.dart';
 import 'package:ubercourserider/widgets/loading.dart';
 
@@ -60,6 +61,8 @@ class AppScreensController extends StatelessWidget {
       case Status.Authenticating:
         return Loading();
       case Status.Authenticated:
+        if(authProvider.userModel.phoneNumber.isEmpty)
+          return PhoneValidationScreen();
         return HomeScreen();
       default:
         return AuthenticationScreen();

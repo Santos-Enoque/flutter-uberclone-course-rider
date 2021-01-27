@@ -12,8 +12,8 @@ class PickupSelectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: 0.28,
-      minChildSize: 0.28,
+      initialChildSize: 0.3,
+      minChildSize: 0.3,
       builder: (BuildContext context, myScrollController) {
         return Container(
           decoration: BoxDecoration(color: Colors.white, boxShadow: [
