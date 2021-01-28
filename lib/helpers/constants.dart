@@ -11,3 +11,4 @@ Logger logger = Logger();
 
 const HAS_PERMISSION = "has_permission";
  const LOCATION_ENABLED = "location_enabled";
+const GOOGLE_MAPS_API_KEY = "AIzaSyC_MPgcB-GAIUYap_caF_lQdB1UqFIEhMg";

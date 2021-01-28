@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
+import 'package:ubercourserider/helpers/constants.dart';
 import 'package:ubercourserider/helpers/style.dart';
 import 'package:ubercourserider/providers/app.dart';
 import 'package:ubercourserider/widgets/custom_btn.dart';
@@ -48,7 +51,9 @@ class PickupSelectionWidget extends StatelessWidget {
                 child: Container(
                   color: grey.withOpacity(.3),
                   child: TextField(
-                    onTap: () async {},
+                    onTap: () async {
+
+                    },
                     textInputAction: TextInputAction.go,
                     controller: appProvider.pickupLocationController,
                     decoration: InputDecoration(
