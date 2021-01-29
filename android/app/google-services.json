@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1033268380595",
+    "project_id": "uber-course-f21ec",
+    "storage_bucket": "uber-course-f21ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033268380595:android:a9082d43c12721ccb041c6",
+        "android_client_info": {
+          "package_name": "com.santosenoque.ubercourserider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033268380595-5jtovr3gkbnsi5r4b6hqkk2reou3q7hp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.santosenoque.ubercourserider",
+            "certificate_hash": "05ee7cc570035a420dbcb20c23174032e8dd026d"
+          }
+        },
+        {
+          "client_id": "1033268380595-5a89et615kipp5ro2k81ck6tdpfstkar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwaHQ8_-6JjBUSipFDNggh04D2gC7PmmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033268380595-5a89et615kipp5ro2k81ck6tdpfstkar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
