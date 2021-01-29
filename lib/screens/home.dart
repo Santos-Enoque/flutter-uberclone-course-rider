@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ubercourserider/providers/app.dart';
 import 'package:ubercourserider/providers/auth.dart';
 import 'package:ubercourserider/widgets/custom_text.dart';
+import 'package:ubercourserider/widgets/drop_off_selection_widget.dart';
 import '../widgets/pickup_selection_widget.dart';
 
 class HomeScreen extends StatelessWidget {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:ubercourserider/helpers/constants.dart';
 
 class AppProvider with ChangeNotifier {
@@ -12,8 +14,8 @@ class AppProvider with ChangeNotifier {
   LatLng _lastPosition;
   LatLng _pickupCoordinates;
   LatLng _dropOffCoordinates;
-  bool _pickUpLocationSet = false;
-  bool _dropOffLocationSet = false;
+  bool _isPickupSet = false;
+  bool _isDropOffSet = false;
   Address address;
 
   LatLng get center => _center;
@@ -26,6 +28,7 @@ class AppProvider with ChangeNotifier {
 
 
   AppProvider.initialize() {
+
     _setCustomMapPin();
     _getUserLocation().then((value) async {
       _addMarker(
@@ -52,12 +55,12 @@ class AppProvider with ChangeNotifier {
     _changeAddress(address: "loading...");
     _lastPosition = cameraPosition.target;
     if (markers.isNotEmpty) {
-      if (!_pickUpLocationSet) {
+      if (_isPickupSet == false) {
         _moveMarkerAndChangeAddress(
             cameraPosition: cameraPosition,
             markerId: 'pickup',
             markerTitle: 'Pickup Location');
-      } else if (!_dropOffLocationSet) {
+      } else if (_isDropOffSet = false) {
         _moveMarkerAndChangeAddress(
             cameraPosition: cameraPosition,
             markerId: 'dropoff',
@@ -65,6 +68,35 @@ class AppProvider with ChangeNotifier {
       }
     }
   }
+
+  _animateCamera({LatLng point}) async {
+    await _mapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: point,
+            tilt: 15,
+            zoom: 19)));
+  }
+
+  displayPlacesSearchWidget(BuildContext context)async{
+    Prediction prediction = await PlacesAutocomplete.show(
+        context: context,
+        apiKey: GOOGLE_MAPS_API_KEY,
+        mode: Mode.overlay,
+        components: [new Component(Component.country, countryCode)]
+    );
+    GoogleMapsPlaces places = GoogleMapsPlaces(apiKey: GOOGLE_MAPS_API_KEY);
+
+    PlacesDetailsResponse detail =await places.getDetailsByPlaceId(prediction.placeId);
+    double lat = detail.result.geometry.location.lat;
+    double lng = detail.result.geometry.location.lng;
+    LatLng _point = LatLng(lat, lng);
+
+    _changeAddress(address: prediction.description);
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    currentFocus.unfocus();
+   _animateCamera(point: _point);
+  }
+
 
   void _moveMarkerAndChangeAddress(
       {@required CameraPosition cameraPosition,
@@ -75,10 +107,10 @@ class AppProvider with ChangeNotifier {
         cameraPosition: cameraPosition,
         markerTitle: markerTitle,
         markerId: markerId);
-    _setCoordinates(coordinates: _point, isPickup: markerId == 'pickup');
+    _setCoordinates(coordinates: _point);
     _getAddressFromCoordinates(point: _point).then((value) async {
       _changeAddress(
-          address: address.addressLine, isPickup: markerId == "pickup");
+          address: address.addressLine);
     });
   }
 
@@ -86,19 +118,21 @@ class AppProvider with ChangeNotifier {
       {@required CameraPosition cameraPosition,
       @required String markerId,
       @required String markerTitle}) {
-    Marker _marker =
-        markers.singleWhere((element) => element.markerId.value == markerId);
-    markers.remove(_marker);
-    _addMarker(
-        markerPosition: cameraPosition.target,
-        id: markerId,
-        title: markerTitle);
-
-    notifyListeners();
+    try{
+      Marker _marker =
+      markers.singleWhere((element) => element.markerId.value == markerId);
+      markers.remove(_marker);
+      _addMarker(
+          markerPosition: cameraPosition.target,
+          id: markerId,
+          title: markerTitle);
+    }catch(error){
+      logger.e(error.toString());
+    }
   }
 
-  _setCoordinates({LatLng coordinates, bool isPickup}) {
-    if (isPickup) {
+  _setCoordinates({LatLng coordinates}) {
+    if (_isPickupSet == false) {
       _pickupCoordinates = coordinates;
     } else {
       _dropOffCoordinates = coordinates;
@@ -131,8 +165,8 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  _changeAddress({String address, bool isPickup = true}) async {
-    if (isPickup) {
+  _changeAddress({String address}) async {
+    if (_isPickupSet == false) {
       pickupLocationController.text = address;
     } else {
       dropOffController.text = address;

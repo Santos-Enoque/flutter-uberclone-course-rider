@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
-import 'package:ubercourserider/helpers/constants.dart';
 import 'package:ubercourserider/helpers/style.dart';
 import 'package:ubercourserider/providers/app.dart';
 import 'package:ubercourserider/widgets/custom_btn.dart';
 
 import 'custom_text.dart';
 
-class PickupSelectionWidget extends StatelessWidget {
+class DropOffSelectionWidget extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldState;
 
-  const PickupSelectionWidget({Key key, this.scaffoldState}) : super(key: key);
+  const DropOffSelectionWidget({Key key, this.scaffoldState}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +34,7 @@ class PickupSelectionWidget extends StatelessWidget {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 CustomText(
-                  text: "Move the pin to adjust pickup location",
+                  text: "Move the pin to adjust drop off location",
                   size: 12,
                   weight: FontWeight.w300,
                 ),
@@ -52,7 +49,7 @@ class PickupSelectionWidget extends StatelessWidget {
                   color: grey.withOpacity(.3),
                   child: TextField(
                     onTap: () async {
-                        appProvider.displayPlacesSearchWidget(context);
+                      // appProvider.displayPlacesSearchWidget(context);
                     },
                     textInputAction: TextInputAction.go,
                     controller: appProvider.pickupLocationController,
@@ -65,7 +62,7 @@ class PickupSelectionWidget extends StatelessWidget {
                               Icons.location_on,
                               color: primary,
                             )),
-                        hintText: "Pickup Location",
+                        hintText: "Drop off Location",
                         hintStyle: TextStyle(
                             color: black,
                             fontSize: 18,

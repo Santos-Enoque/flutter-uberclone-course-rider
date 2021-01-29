@@ -12,7 +12,7 @@
         android:label="ubercourserider"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC_MPgcB-GAIUYap_caF_lQdB1UqFIEhMg"/>
+            android:value="AIzaSyBi8Rwybtuq7-v-m9TEOxjVXsXt-TsFjus"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
