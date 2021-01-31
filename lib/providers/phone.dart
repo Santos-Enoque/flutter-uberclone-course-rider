@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ubercourserider/helpers/constants.dart';
-import 'package:ubercourserider/services/user.dart';
+import 'package:ubercourserider/utils/services/user.dart';
 
 class PhoneProvider with ChangeNotifier{
   final formKey = GlobalKey<FormState>();

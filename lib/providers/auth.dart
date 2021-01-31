@@ -4,12 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ubercourserider/helpers/constants.dart';
+import 'package:ubercourserider/constants/firebase_constants.dart';
 import 'package:ubercourserider/models/user.dart';
-import 'package:ubercourserider/screens/home.dart';
-import 'package:ubercourserider/services/user.dart';
+import 'file:///D:/projects/flutter-uberclone-course-rider/lib/screens/home/home.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:ubercourserider/utils/services/user.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 enum AuthenticationMethod {Google, Facebook}

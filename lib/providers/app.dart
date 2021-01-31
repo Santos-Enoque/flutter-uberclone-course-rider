@@ -4,7 +4,7 @@ import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:ubercourserider/helpers/constants.dart';
+import 'package:ubercourserider/constants/app_constants.dart';
 
 class AppProvider with ChangeNotifier {
   Position position;

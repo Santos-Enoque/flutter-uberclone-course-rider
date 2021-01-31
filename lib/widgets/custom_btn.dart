@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../helpers/style.dart';
 import 'custom_text.dart';
 
 class CustomBtn extends StatelessWidget {
@@ -27,7 +25,7 @@ class CustomBtn extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: bgColor ?? black,
+            color: bgColor ?? Colors.black,
             boxShadow: [
               BoxShadow(
                   color: shadowColor == null
@@ -41,7 +39,7 @@ class CustomBtn extends StatelessWidget {
           alignment: Alignment.center,
           child: CustomText(
             text: text,
-            color: txtColor ?? white,
+            color: txtColor ?? Colors.white,
             size: 22,
             weight: FontWeight.normal,
           ),

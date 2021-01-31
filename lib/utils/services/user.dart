@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ubercourserider/helpers/constants.dart';
+import 'package:ubercourserider/constants/app_constants.dart';
+import 'package:ubercourserider/constants/firebase_constants.dart';
 import 'package:ubercourserider/models/user.dart';
 
 class UserServices {

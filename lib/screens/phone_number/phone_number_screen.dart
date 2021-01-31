@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-import 'package:ubercourserider/helpers/dimenssions.dart';
-import 'package:ubercourserider/helpers/navigation.dart';
 import 'package:ubercourserider/providers/app.dart';
 import 'package:ubercourserider/providers/auth.dart';
-import 'package:ubercourserider/providers/prhone.dart';
-import 'package:ubercourserider/screens/home.dart';
-import 'package:ubercourserider/widgets/custom_btn.dart';
+import 'package:ubercourserider/providers/phone.dart';
+import 'file:///D:/projects/flutter-uberclone-course-rider/lib/screens/home/home.dart';
+import 'package:ubercourserider/utils/helpers/dimenssions.dart';
 import 'package:ubercourserider/widgets/custom_text.dart';
 import 'package:ubercourserider/widgets/loading.dart';
 
